@@ -1,0 +1,84 @@
+{% block blog_mini_grid_area %}
+{% load static %}
+<section class="doc_blog_grid_area_two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="blog_grid_post shadow-sm wow fadeInUp">
+                    <img src={% static 'img/blog-grid/blog_grid_post7.jpg' %} alt="">
+                    <div class="grid_post_content">
+                        <div class="post_tag">
+                            <a href="#">18 Min Read</a>
+                            <a class="c_blue" href="#">WordPress</a>
+                        </div>
+                        <a href="#">
+                            <h4 class="b_title">Create A WordPress Multi Step Form With weForms</h4>
+                        </a>
+                        <p>The pressure to keep our skills sharp is constant. Mastering new skills may...</p>
+                        <div class="media post_author">
+                            <div class="round_img">
+                                <img src="img/blog-grid/author_1.jpg" alt="">
+                            </div>
+                            <div class="media-body author_text">
+                                <h4>Jason Response</h4>
+                                <div class="date">Sep 14, 2020</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="blog_grid_post shadow-sm wow fadeInUp" data-wow-delay="0.2s">
+                    <img src={% static 'img/blog-grid/blog_grid_post8.jpg' %} alt="">
+                    <div class="grid_post_content">
+                        <div class="post_tag">
+                            <a href="#">18 Min Read</a>
+                            <a class="orange" href="#">Docy</a>
+                        </div>
+                        <a href="#">
+                            <h4 class="b_title">How to Create GDPR Consent Form In WordPress</h4>
+                        </a>
+                        <p>The pressure to keep our skills sharp is constant. Mastering new skills may...</p>
+                        <div class="media post_author">
+                            <div class="round_img">
+                                <img src="img/blog-grid/author_2.jpg" alt="">
+                            </div>
+                            <div class="media-body author_text">
+                                <h4>Druid Wensleydale</h4>
+                                <div class="date">Sep 14, 2020</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="blog_grid_post shadow-sm wow fadeInUp" data-wow-delay="0.4s">
+                    <img src={% static 'img/blog-grid/blog_grid_post9.jpg' %} alt="">
+                    <div class="grid_post_content">
+                        <div class="post_tag">
+                            <a href="#">10 Min Read</a>
+                            <a class="cat-laravel" href="#">Laravel</a>
+                        </div>
+                        <a href="#">
+                            <h4 class="b_title">Create Conditional Logic Forms & Publish</h4>
+                        </a>
+                        <p>The pressure to keep our skills sharp is constant. Mastering new skills may...</p>
+                        <div class="media post_author">
+                            <div class="round_img">
+                                <img src="img/blog-grid/author_3.jpg" alt="">
+                            </div>
+                            <div class="media-body author_text">
+                                <h4>Douglas Lyphe</h4>
+                                <div class="date">Nov 10, 2020</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 text-center wow fadeInUp" data-wow-delay="0.3s">
+                <a href="#" class="doc_border_btn all_doc_btn">Load More<i class="arrow_right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock blog_mini_grid_area %}

@@ -1,0 +1,358 @@
+
+{% block blog_details_main_area %}
+{% load static %}
+
+<section class="blog_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog_single_info">
+                    <div class="blog_single_item">
+                        {% if blogs.image != "" %}
+                            <a href="#" class="blog_single_img"><img src={{ blogs.image }} alt=""></a>
+                        {% endif %}
+
+
+                        {% for content in contents %}
+                            {% if content.content_type == 'quote' %}
+                                <blockquote>
+                                    <h4 class="c_head">{{ content.text_content }}</h4>
+                                    <div class="author">{{ content.author }}</div>
+                                </blockquote>
+                            {% elif content.content_type == 'link' %}
+                                <a href="{{ content.link_url }}">{{ content.text_content }}</a>
+                            {% elif content.content_type == 'paragraph' %}
+                                <p>{{ content.text_content }}</p>
+                            {% elif content.content_type == 'heading' %}
+                                <h2>{{ content.text_content }}</h2>
+                            {% elif content.content_type == 'image' %}
+                                <img src="{{ content.image_url }}" alt="">
+                            {% endif %}
+                            
+                        {% endfor %}
+
+                        <div class="blog_social text-center">
+                            <h5>Share This Article</h5>
+                            <ul class="list-unstyled f_social_icon">
+                                <li><a href="#"><i class="social_facebook"></i></a></li>
+                                <li><a href="#"><i class="social_twitter"></i></a></li>
+                                <li><a href="#"><i class="social_vimeo"></i></a></li>
+                                <li><a href="#"><i class="social_linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                   
+                    <div class="blog_related_post">
+                        <h2 class="c_head">Related Post</h2>
+                        <div class="row">
+                                
+                            {% for related_blg in related_blogs %}
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="blog_grid_post wow fadeInUp" data-wow-delay="0.2s">
+                                        {% if related_blg.image != "" %}
+                                            <a href="{{ related_blg.full_url }}" class="blog_single_img"><img src={{ related_blg.image }} alt=""></a>
+                                        {% endif %}
+                                        <div class="grid_post_content">
+                                            <div class="post_tag">
+                                                <a href="{{ related_blg.full_url }}">{{ related_blg.read_time }} Min Read</a>
+                                            </div>
+                                            <a href="{{ related_blg.full_url }}">
+                                                <h4 class="b_title">{{ related_blg.title }}</h4>
+                                            </a>
+                                            <p>{{related_blg.content}}</p>
+                                            <a href="{{ related_blg.full_url }}" class="learn_btn">Continue Reading<i class="arrow_right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                    
+
+
+
+                    <div class="comment_inner">
+                        <h2 class="c_head">{{ blog.comments.count }} Comment{% if blog.comments.count != 1 %}s{% endif %}</h2>
+                        <ul class="comment_box list-unstyled">
+                            {% for comment in comments %}
+                                <li class="post_comment">
+                                    <div class="media comment_author">
+                                        {% if comment.author_image %}
+                                            <img class="img_rounded" src="{{ comment.author_image }}" alt="{{ comment.name }}">
+                                        {% else %}
+                                            <i class="fas fa-user-circle img_rounded" style="font-size: 40px;"></i> <!-- Font Awesome icon -->
+                                        {% endif %}
+                                        <div class="media-body">
+                                            <div class="comment_info">
+                                                <h3>{{ comment.name }}</h3>
+                                                <div class="comment_date">{{ comment.created_at|date:"F j, Y \a\t g:i A" }}</div>
+                                            </div>
+                                            <p>{{ comment.content }}</p>
+                                            <a href="#" class="comment_reply" data-parent-id="{{ comment.id }}">Reply <i class="arrow_right"></i></a>
+                                        </div>
+                                    </div>
+                    
+                                    <!-- Nested Replies -->
+                                    <ul class="list-unstyled reply_comment">
+                                        {% for reply in comment.replies.all %}
+                                            <li>
+                                                <div class="media comment_author">
+                                                    {% if reply.author_image %}
+                                                        <img class="img_rounded" src="{{ reply.author_image }}" alt="{{ reply.name }}">
+                                                    {% else %}
+                                                        <i class="fas fa-user-circle img_rounded" style="font-size: 40px;"></i> <!-- Font Awesome icon -->
+                                                    {% endif %}
+                                                    <div class="media-body">
+                                                        <div class="comment_info">
+                                                            <h3>{{ reply.name }}</h3>
+                                                            <div class="comment_date">{{ reply.created_at|date:"F j, Y \a\t g:i A" }}</div>
+                                                        </div>
+                                                        <p>{{ reply.content }}</p>
+                                                        <a href="#" class="comment_reply" data-parent-id="{{ reply.id }}">Reply <i class="arrow_right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% empty %}
+                                            <li>No replies yet.</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% empty %}
+                                <li>No comments yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    
+                        <!-- Comment Form -->
+                        <div class="blog_comment_box topic_comment">
+                            <h2 class="c_head">Leave a Feedback</h2>
+                            <p>Your email address will not be published. Required fields are marked *</p>
+                            <form class="get_quote_form row" action="" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="parent_id" id="parent_id" value=""> <!-- Hidden field for parent comment ID -->
+                                <div class="col-md-6 form-group">
+                                    <input type="text" class="form-control" name="name" required>
+                                    <label class="floating-label">Full Name *</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="email" class="form-control" name="email" required>
+                                    <label class="floating-label">Email *</label>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" name="web">
+                                    <label class="floating-label">Website (Optional)</label>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <textarea class="form-control message" name="comment" required></textarea>
+                                    <label class="floating-label">Comment...</label>
+                                </div>
+                                <div class="col-md-12 form-group check_input">
+                                    <input type="checkbox" id="save_info" name="save_info" value="yes">
+                                    <label for="save_info">Save my name, email, and website in this browser for the next time I comment.</label>
+                                </div>
+                                <div class="col-md-12 form-group"><button class="btn action_btn thm_btn" type="submit">Post Comment</button></div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // JavaScript to handle reply button click
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const replyButtons = document.querySelectorAll('.comment_reply');
+                    
+                            replyButtons.forEach(button => {
+                                button.addEventListener('click', function(e) {
+                                    e.preventDefault(); // Prevent default anchor behavior
+                                    const parentId = this.dataset.parentId; // Get the parent ID from data attribute
+                                    document.getElementById('parent_id').value = parentId; // Set the parent ID in the hidden input
+                                });
+                            });
+                        });
+                    </script>
+                    {% comment %} <div class="comment_inner">
+                        <h2 class="c_head">{{ blog.comments.count }} Comment{% if blog.comments.count != 1 %}s{% endif %}</h2>
+                        <ul class="comment_box list-unstyled">
+                            {% for comment in comments %}
+                                <li class="post_comment">
+                                    <div class="media comment_author">
+                                        <div class="media-body">
+                                            <div class="comment_info">
+                                                <h3>{{ comment.name }}</h3>
+                                                <div class="comment_date">{{ comment.created_at|date:"F j, Y \a\t g:i A" }}</div> <!-- Formatted date -->
+                                            </div>
+                                            <p>{{ comment.content }}</p>
+                                            <a href="#" class="comment_reply">Reply <i class="arrow_right"></i></a>
+                                        </div>
+                                    </div>
+                    
+                                    <!-- If you want to show nested replies, you can uncomment this part -->
+                                    <ul class="list-unstyled reply_comment">
+                                        {% for reply in comment.replies.all %}
+                                            <li>
+                                                <div class="media comment_author">
+                                                    <div class="media-body">
+                                                        <div class="comment_info">
+                                                            <h3>{{ reply.name }}</h3>
+                                                            <div class="comment_date">{{ reply.created_at|date:"F j, Y \a\t g:i A" }}</div>
+                                                        </div>
+                                                        <p>{{ reply.content }}</p>
+                                                        <a href="#" class="comment_reply">Reply <i class="arrow_right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% empty %}
+                                            <!-- If no replies exist, you can add a placeholder -->
+                                            <li>No replies yet.</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% empty %}
+                                <li>No comments yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div> {% endcomment %}
+
+                    
+                    
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_sidebar pl-40">
+                    <div class="widget about_widget">
+                        <div class="img"><img src="img/blog-single/about_img.jpg" alt=""></div>
+                        <div class="text">
+                            <a href="#">
+                                <h3>Rodney Artichoke</h3>
+                            </a>
+                            <p>James Bond jolly good happy days smashing barney bonnet bits and bobs loo.!</p>
+                        </div>
+                    </div>
+                    <div class="widget categorie_widget">
+                        <h4 class="c_head">Post Categories</h4>
+                        <ul class="list-unstyled categorie_list">
+                            <li><a href="#">Creative <span>(12)</span></a></li>
+                            <li><a href="#">Inspiration <span>(8)</span></a></li>
+                            <li><a href="#">Lifestyle <span>(3)</span></a></li>
+                            <li><a href="#">News <span>(4)</span></a></li>
+                            <li><a href="#">Photography <span>(12)</span></a></li>
+                            <li><a href="#">Skill <span>(15)</span></a></li>
+                            <li><a href="#">Tourist Tours <span>(10)</span></a></li>
+                            <li><a href="#">Inspire <span>(5)</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="widget recent_news_widget">
+                        <h4 class="c_head">Reacent News</h4>
+                        <div class="media recent_post_item">
+                            <img src="img/blog-single/news_01.jpg" alt="">
+                            <div class="media-body">
+                                <a href="#">
+                                    <h5>Is It Worth Buying A Premium Form Builder.</h5>
+                                </a>
+                                <div class="entry_post_date">January 14, 2020</div>
+                            </div>
+                        </div>
+                        <div class="media recent_post_item">
+                            <img src="img/blog-single/news_02.jpg" alt="">
+                            <div class="media-body">
+                                <a href="#">
+                                    <h5>10 Classic Summer Vacations</h5>
+                                </a>
+                                <div class="entry_post_date">April 16, 2020</div>
+                            </div>
+                        </div>
+                        <div class="media recent_post_item">
+                            <img src="img/blog-single/news_03.jpg" alt="">
+                            <div class="media-body">
+                                <a href="#">
+                                    <h5>How To Easily Add weForms Widget Using Elementor</h5>
+                                </a>
+                                <div class="entry_post_date">March 10, 2020</div>
+                            </div>
+                        </div>
+                        <div class="media recent_post_item">
+                            <img src="img/blog-single/news_04.jpg" alt="">
+                            <div class="media-body">
+                                <a href="#">
+                                    <h5>How to Create GDPR Consent Form In WordPress</h5>
+                                </a>
+                                <div class="entry_post_date">January 19, 2020</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget comments_widget">
+                        <h4 class="c_head">Recent Comments</h4>
+                        <ul class="list-unstyled recent_comments">
+                            <li>
+                                <h6><i class="icon_chat_alt"></i>Douglas Lyphe:</h6>
+                                <a href="#" class="text">
+                                    French squiffy pukka gosh nancy boy buggered, bog-standard.!
+                                </a>
+                            </li>
+                            <li>
+                                <h6><i class="icon_chat_alt"></i>Hilary Ouse:</h6>
+                                <a href="#" class="text">
+                                    Charles give us a bell butty blatant baking cakes cheesed off.
+                                </a>
+                            </li>
+                            <li>
+                                <h6><i class="icon_chat_alt"></i>Penny Tool:</h6>
+                                <a href="#" class="text">
+                                    Starkers happy days bobby pardon me.
+                                </a>
+                            </li>
+                            <li>
+                                <h6><i class="icon_chat_alt"></i>Jackson Pot:</h6>
+                                <a href="#" class="text">
+                                    Charles give us a bell butty blatant baking cakes cheesed off.
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget tag_widget">
+                        <h4 class="c_head">Tags</h4>
+                        <ul class="list-unstyled w_tag_list">
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">Apps</a></li>
+                            <li><a href="#">Photography</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Docy</a></li>
+                            <li><a href="#">WordPress</a></li>
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">DocAll</a></li>
+                            <li><a href="#">Magento</a></li>
+                            <li><a href="#">Doc Design</a></li>
+                            <li><a href="#">ui/ux</a></li>
+                            <li><a href="#">Docs</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget instragram_widget">
+                        <h4 class="c_head">Instragram</h4>
+                        <div class="instragram_info">
+                            <a href="#" class="instragram_item">
+                                <img src="img/blog-single/image_01.jpg" alt="">
+                            </a>
+                            <a href="#" class="instragram_item">
+                                <img src="img/blog-single/image_02.jpg" alt="">
+                            </a>
+                            <a href="#" class="instragram_item">
+                                <img src="img/blog-single/image_03.jpg" alt="">
+                            </a>
+                            <a href="#" class="instragram_item">
+                                <img src="img/blog-single/image_04.jpg" alt="">
+                            </a>
+                            <a href="#" class="instragram_item">
+                                <img src="img/blog-single/image_05.jpg" alt="">
+                            </a>
+                            <a href="#" class="instragram_item">
+                                <img src="img/blog-single/image_06.jpg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock blog_details_main_area %}

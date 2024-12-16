@@ -1,0 +1,207 @@
+
+{% block seach_area_banner %}
+{% load static %}
+
+
+<section class="doc_banner_area search-banner-light">
+    <div class="container">
+        <div class="doc_banner_content">
+                
+        {% comment %} <form id="searchForm" class="header_search_form" onsubmit="return false;"> <!-- Prevent default submission -->
+            <div class="header_search_form_info">
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="icon_search"></i>
+                        <input type='search' id="searchbox" autocomplete="off" name="q" placeholder="Search for Topics...." required />
+                        <div class="header_search_form_panel">
+                            <ul class="list-unstyled">
+                                <li>Help Desk
+                                    <ul class="list-unstyled search_item">
+                                        <li><span>Configuration</span><a href="#">How to edit host and port?</a></li>
+                                        <li><span>Configuration</span><a href="#">The dev Property</a></li>
+                                    </ul>
+                                </li>
+                                <li>Support
+                                    <ul class="list-unstyled search_item">
+                                        <li><span>Pages</span><a href="#">The asyncData Method</a></li>
+                                    </ul>
+                                </li>
+                                <li>Documentation
+                                    <ul class="list-unstyled search_item">
+                                        <li><span>Getting Started</span><a href="#">The asyncData Method</a></li>
+                                        <li><span>Getting Started</span><a href="#">The asyncData Method</a></li>
+                                        <li><span>Getting Started</span><a href="#">The asyncData Method</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header_search_keyword">
+                <span class="header-search-form__keywords-label">Popular Searches:</span>
+                <ul class="list-unstyled">
+                    <li class="wow fadeInUp" data-wow-delay="0.2s"><a href="#">Docy Documentation</a>,</li>
+                    <li class="wow fadeInUp" data-wow-delay="0.3s"><a href="#">Tabs Widget</a>,</li>
+                    <li class="wow fadeInUp" data-wow-delay="0.4s"><a href="#">Process Tab</a></li>
+                </ul>
+            </div>
+        </form>
+
+        <div id="searchResults"></div>
+                    
+             <form action="{% url 'search_view' %}" method="get" class="header_search_form">  <!-- Correct usage here -->
+                <div class="header_search_form_info">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="icon_search"></i>
+                            <input type='search' id="searchbox" autocomplete="off" name="q" placeholder="Search for Topics...." />
+                            <div class="header_search_form_panel">
+                                <!-- Your existing search suggestions here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_search_keyword">
+                    <span class="header-search-form__keywords-label">Popular Searches:</span>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Docy Documentation</a>,</li>
+                        <li><a href="#">Tabs Widget</a>,</li>
+                        <li><a href="#">Process Tab</a></li>
+                    </ul>
+                </div>
+            </form> 
+             <form action="{% url 'search_view' %}" method="get" class="header_search_form">  <!-- Set the action to your search URL -->
+                <div class="header_search_form_info">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="icon_search"></i>
+                            <input type='search' id="searchbox" autocomplete="off" name="q" placeholder="Search for Topics...." />  <!-- Change name to 'q' for consistency with the view -->
+                            <div class="header_search_form_panel">
+                                <ul class="list-unstyled">
+                                    <li>Help Desk
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Configuration</span><a href="#">How to edit host and port?</a></li>
+                                            <li><span>Configuration</span><a href="#">The dev Property</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>Support
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Pages</span><a href="#">The asyncData Method</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>Documentation
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a></li>
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a></li>
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_search_keyword">
+                    <span class="header-search-form__keywords-label">Popular Searches:</span>
+                    <ul class="list-unstyled">
+                        <li class="wow fadeInUp" data-wow-delay="0.2s"><a href="#">Docy Documentation</a>,</li>
+                        <li class="wow fadeInUp" data-wow-delay="0.3s"><a href="#">Tabs Widget</a>,</li>
+                        <li class="wow fadeInUp" data-wow-delay="0.4s"><a href="#">Process Tab</a></li>
+                    </ul>
+                </div>
+            </form> 
+             <form action="#" class="header_search_form">
+                <div class="header_search_form_info">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="icon_search"></i>
+                            <input type='search' id="searchbox" autocomplete="off" name="search"
+                                   placeholder="Search for Topics...." />
+                            <div class="header_search_form_panel">
+                                <ul class="list-unstyled">
+                                    <li>Help Desk
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Configuration</span><a href="#">How to edit host and
+                                                port?</a></li>
+                                            <li><span>Configuration</span><a href="#">The dev Property</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>Support
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Pages</span><a href="#">The asyncData Method</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>Documentation
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a>
+                                            </li>
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a>
+                                            </li>
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_search_keyword">
+                    <span class="header-search-form__keywords-label">Popular Searches:</span>
+                    <ul class="list-unstyled">
+                        <li class="wow fadeInUp" data-wow-delay="0.2s"><a href="#">Docy Documentation</a>,</li>
+                        <li class="wow fadeInUp" data-wow-delay="0.3s"><a href="#">Tabs Widget</a>,</li>
+                        <li class="wow fadeInUp" data-wow-delay="0.4s"><a href="#">Process Tab</a></li>
+                    </ul>
+                </div>
+            </form> 
+        </div> {% endcomment %}
+    </div>
+</section>
+
+
+
+
+{% comment %} 
+<script>
+    function performSearch() {
+        const query = document.getElementById('searchbox').value; // Get the search query
+        const resultsDiv = document.getElementById('searchResults');
+    
+        // Clear previous results
+        resultsDiv.innerHTML = '';
+    
+        // Make AJAX request to search
+        fetch(`/search/?q=${encodeURIComponent(query)}`) // Assuming the search view is at this URL
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse JSON response
+            })
+            .then(data => {
+                // Check if there are results
+                if (data.results.length > 0) {
+                    const resultsHTML = data.results.map(blog => `
+                        <div>
+                            <a href="${blog.get_absolute_url}">${blog.title}</a>
+                            <p>${blog.content.substring(0, 100)}...</p> <!-- Show a preview -->
+                        </div>
+                    `).join('');
+                    resultsDiv.innerHTML = resultsHTML; // Display results
+                } else {
+                    resultsDiv.innerHTML = '<p>No results found.</p>'; // Handle no results
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+                resultsDiv.innerHTML = '<p>Error fetching results. Please try again.</p>'; // Handle errors
+            });
+    }
+    </script>
+    
+
+    
+ {% endcomment %}
+{% endblock seach_area_banner %}

@@ -1,0 +1,17 @@
+from django.urls import path, include
+from .views import RedirectToHome, HomeView, TestView, BlogMainView, BlogDetailsView, TagViews, SearchView, CategoryDetailView, Contact
+
+app_name = 'blog' 
+
+urlpatterns = [
+    path('home/', HomeView.as_view(), name='home-view'), 
+    path('test/', TestView.as_view(), name='test'), 
+    path('blogs/', BlogMainView.as_view(), name='blogs_main'), 
+    path('contact/', Contact.as_view(), name='blogs_main'), 
+    path('', RedirectToHome.as_view(), name='redirect-to-home'), 
+    path('blogs/<slug:slug>/', BlogDetailsView.as_view(), name='blog_detail'),
+    path('tags/<slug:slug>/', TagViews.as_view(), name='tag_view'),
+    path('category/<slug:slug>/', CategoryDetailView.as_view(), name='category_detail'),  # Add this line
+
+    # path('search/', SearchView.as_view(), name='search_view')
+]

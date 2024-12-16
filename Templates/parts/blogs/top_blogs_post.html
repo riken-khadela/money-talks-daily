@@ -1,0 +1,47 @@
+
+
+
+{% block top_blogs_post %}
+{% load static %}
+
+
+<section class="blog_top_post_area sec_pad bg_color">
+    <div class="container">
+        <div class="row blog_top_post flex-row-reverse shadow">
+            {% for trending_blog in trending_blogs %}
+            <div class="col-lg-7 p_top_img">
+                <img class="p_img" src="{{ trending_blog.image }}" alt="">
+            </div>
+            <div class="col-lg-5 p-0">
+                <div class="b_top_post_content">
+                    <div class="post_tag">
+                        <a href="{{ trending_blog.full_url }}">9 Min Read</a>
+                        <a class="c_blue" href="#">WordPress</a>
+                    </div>
+                    <a href="{{ trending_blog.full_url }}">
+                        <h3>{{ trending_blog.title }}</h3>
+                    </a>
+                    <p>{{ trending_blog.content }}</p>
+                    <a href="{{ trending_blog.full_url }}" class="learn_btn">Continue Reading<i class="arrow_right"></i></a>
+                    <div class="media post_author">
+                        <div class="round_img">
+                            <img src="{{ trending_blog.image }}" alt="{{ trending_blog.title }}">
+                            {% comment %} {% if trending_blog.image_url %}
+                                <img src="{{ trending_blog.image_url }}" alt="{{ trending_blog.title }}">
+                            {% else %}
+                                <img src="{% static 'img/blog-grid/default.jpg' %}" alt="Default Image">  <!-- Fallback image -->
+                            {% endif %} {% endcomment %}
+                        </div>
+                        <div class="media-body author_text">
+                            <h4>Jason Response</h4>
+                            <div class="date">Sep 14, 2020</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock top_blogs_post %}

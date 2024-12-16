@@ -1,0 +1,352 @@
+{% extends "base.html" %} {% block title %}home{% endblock %} 
+
+
+{% block content %}
+
+<section class="doc_banner_area search-banner-light">
+    <ul class="list-unstyled banner_shap_img">
+    </ul>
+    <div class="container">
+        <div class="doc_banner_content">
+            <form action="#" class="header_search_form">
+                <div class="header_search_form_info">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="icon_search"></i>
+                            <input type='search' id="searchbox" autocomplete="off" name="search"
+                                   placeholder="Search for Topics...." />
+                            <div class="header_search_form_panel">
+                                <ul class="list-unstyled">
+                                    <li>Help Desk
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Configuration</span><a href="#">How to edit host and
+                                                port?</a></li>
+                                            <li><span>Configuration</span><a href="#">The dev Property</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>Support
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Pages</span><a href="#">The asyncData Method</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>Documentation
+                                        <ul class="list-unstyled search_item">
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a>
+                                            </li>
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a>
+                                            </li>
+                                            <li><span>Getting Started</span><a href="#">The asyncData Method</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_search_keyword">
+                    <span class="header-search-form__keywords-label">Popular Searches:</span>
+                    <ul class="list-unstyled">
+                        <li class="wow fadeInUp" data-wow-delay="0.2s"><a href="#">Docy Documentation</a>,</li>
+                        <li class="wow fadeInUp" data-wow-delay="0.3s"><a href="#">Tabs Widget</a>,</li>
+                        <li class="wow fadeInUp" data-wow-delay="0.4s"><a href="#">Process Tab</a></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="page_breadcrumb">
+    <div class="container custom_container">
+        <div class="row">
+            <div class="col-sm-7">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Docs</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Docy WordPress Theme</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-sm-5">
+                <a href="#" class="date"><i class="icon_clock_alt"></i>Updated on March 03, 2020</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="doc_documentation_area" id="sticky_doc">
+    <div class="overlay_bg"></div>
+    <div class="container custom_container">
+        <div class="row">
+            <div class="col-lg-3 doc_mobile_menu display_none">
+                <aside class="doc_left_sidebarlist">
+                    <div class="open_icon" id="left">
+                        <i class="arrow_carrot-right"></i>
+                        <i class="arrow_carrot-left"></i>
+                    </div>
+                    <div class="scroll">
+                        <ul class="list-unstyled nav-sidebar">
+                            <li class="nav-item">
+                                <a href="doc-main.html" class="nav-link"><img src="img/side-nav/home.png" alt="">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="doc-main.html" class="nav-link"><img src="img/side-nav/briefcase.png" alt="briefcase">Elements</a>
+                                <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                <ul class="list-unstyled dropdown_nav">
+                                    <li><a href="doc-element-tab.html">Tabs</a></li>
+                                    <li><a href="doc-element-accordion.html">Accordion</a></li>
+                                    <li><a href="doc-element-notice.html">Notices</a></li>
+                                    <li><a href="doc-content-tables.html">Table</a></li>
+                                    <li><a href="doc-element-lightbox.html">Image Lightbox</a></li>
+                                    <li><a href="doc-content-tooltip.html">Tooltip</a></li>
+                                    <li><a href="doc-ref-can-use.html">Can I use</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="doc-ref-cheatsheet.html" class="nav-link"><img src="img/side-nav/chat1.png" alt="">Reference</a>
+                                <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                <ul class="list-unstyled dropdown_nav">
+                                    <li><a href="doc-ref-cheatsheet.html">Cheatsheet</a></li>
+                                    <li><a href="doc-ref-footnote.html">Footnotes</a></li>
+                                    <li><a href="doc-tour.html">Interface Tour</a></li>
+                                    <li><a href="doc-ref-can-use.html">Can I Use</a></li>
+                                    <li><a href="doc-content-tooltip.html">Tooltips & Direction</a></li>
+                                    <li><a href="doc-ref-shortcuts.html">Keyboard Shortcuts</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="typography.html" class="nav-link"><img src="img/side-nav/document.png" alt="">Content</a>
+                                <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                <ul class="list-unstyled dropdown_nav">
+                                    <li><a href="doc-content-image.html">Image</a></li>
+                                    <li><a href="doc-element-tab.html">Tables</a></li>
+                                    <li><a href="doc-element-code.html">Code</a></li>
+                                    <li><a href="doc-content-video.html">Video</a></li>
+                                    <li><a class="active" href="doc-content-tooltip.html">Tooltips & Direction</a></li>
+                                    <li><a href="typography.html">Typography</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="doc-content-video.html" class="nav-link"><img src="img/side-nav/layout.png" alt="">Layouts</a>
+                                <span class="icon"><i class="arrow_carrot-down"></i></span>
+                                <ul class="list-unstyled dropdown_nav">
+                                    <li><a href="doc-content-video.html">Full-width</a></li>
+                                    <li><a href="doc-element-hotspots.html">Left Sidebar</a></li>
+                                    <li><a href="doc-layout-banner-gradient.html">Gradient Banner</a></li>
+                                    <li><a href="doc-layout-banner-empty.html">Without Banner</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="doc-changelog.html" class="nav-link"><img src="img/side-nav/clock.png" alt="">Change Log</a>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled nav-sidebar coding_nav">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link"><img src="img/side-nav/account.png" alt="">Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="doc-element-code.html" class="nav-link"><img src="img/side-nav/coding.png" alt="">Development</a>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled nav-sidebar bottom_nav">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link"><img src="img/side-nav/united-states.png" alt="">United States</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link"><img src="img/side-nav/edit.png" alt="">English </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link"><img src="img/side-nav/users.png" alt="">Sign In <i class="arrow_right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="col-lg-7 col-md-8 doc-middle-content">
+                <article id="post" class="shortcode_info">
+                    <h2 class="s_title" id="tooltip-t">Tooltip</h2>
+                    <div class="tooltip_content">
+                        <h4>What is an Extension?</h4>
+                        <p>So I said cup of tea Queen's English owt to do with me I don't want no agro cheers cheeky bugger fanny around baking cakes down the pub happy days, Go to <span class="direction_steps"> <span class="direction_step">Dashboard</span> <span class="direction_step">Theme Settings</span> <span class="direction_step">Header</span> </span> daft a load of old tosh buggered he lost his bottle lost the plot he nicked it a blinding shot. </p>
+                        <p><a href="#" class="tooltips" data-tooltip-content="#tooltipOne">James Bond David</a> mufty quaint no biggie cras baking cakes barney bamboozled, what a plonker bum bag he legged it young delinquent knees up Eaton the full monty arse over tit, my lady buggered happy days amongst bugger all mate are you taking the piss brolly.Lorem impsum <a href="#" class="tooltips" data-tooltip-content="#tooltipTwo">William bite your arm</a> off a blinding shot matie boy old gosh barney grub dropped a clanger.</p>
+                        <p>Tosser are you taking the piss cuppa porkies pardon you butty lost the plot William bog lemon squeezy bite your arm off Richard, say what a load of rubbish cockup I don't want no agro twit young delinquent cack bodge a bonnet.</p>
+                    </div>
+                    <div class="highlight_text mt-5">
+                        <h4>Text Tooltips</h4>
+                        <p>He nicked it chip shop argy-bargy brilliant get stuffed mate absolutely bladdered smashing, <span class="tooltips_one" data-toggle="tooltip" data-placement="top" title="Your text here">codswallop tosser</span> hunky-dory cheers in my flat bite your arm off, cracking goal up <span class="tooltips_two" data-toggle="tooltip" data-placement="top" title="Editar">the duff cheeky bugger zonked why</span>. Burke cras Richard grub say bits and bobs mush my lady tinkety tonk old fruit crikey fantastic vagabond, sloshed blower barney bender is bobby you mug daft argy-bargy.</p>
+                    </div>
+
+                    <footer>
+                        <div class="border_bottom"></div>
+                        <div class="row feedback_link">
+                            <div class="col-lg-6">
+                                <h6><i class="icon_mail_alt"></i>Still stuck? <a href="#" data-toggle="modal" data-target="#exampleModal3">How can we help?</a></h6>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>Was this page helpful? <a href="#" class="h_btn">Yes</a><a href="#" class="h_btn red">No</a></p>
+                            </div>
+                        </div>
+                    </footer>
+                </article>
+
+                <div class="row topic_item_tabs inner_tab_list">
+                    <div class="col-lg-6">
+                        <div class="topic_list_item">
+                            <h4>Related articles</h4>
+                            <ul class="navbar-nav">
+                                <li><a href="#"><i class="icon_document_alt"></i>Accordions Widget</a></li>
+                                <li><a href="#"><i class="icon_document_alt"></i>Notice / Message Widget</a>
+                                </li>
+                                <li><a href="#"><i class="icon_document_alt"></i>Cheatsheet</a></li>
+                                <li><a href="#"><i class="icon_document_alt"></i>Image Hotspots Widget</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="topic_list_item">
+                            <h4>Recently viewed articles</h4>
+                            <ul class="navbar-nav">
+                                <li><a href="#"><i class="icon_document_alt"></i>Tabs Widget</a></li>
+                                <li><a href="#"><i class="icon_document_alt"></i>Notice / Message Widget</a>
+                                </li>
+                                <li><a href="#"><i class="icon_document_alt"></i>Cheatsheet</a></li>
+                                <li><a href="#"><i class="icon_document_alt"></i>Image Hotspots Widget</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment_inner">
+                    <h2 class="c_head">3 Comment</h2>
+                    <ul class="comment_box list-unstyled">
+                        <li class="post_comment">
+                            <div class="media comment_author">
+                                <img class="img_rounded" src="img/blog-single/comment_01.jpg" alt="">
+                                <div class="media-body">
+                                    <div class="comment_info">
+                                        <h3>Issac Wise</h3>
+                                        <div class="comment_date">July 3, 2020 at 2:14 pm</div>
+                                    </div>
+                                    <p>Wouldn’t it be better practice to use get_the_title(..) in this case?
+                                        directly accessing the post object’s data member would bypass
+                                        applying filters and enforcing protected and private settings,
+                                        unless that’s explicitly desired.</p>
+                                    <a href="#" class="comment_reply">Reply <i class="arrow_right"></i></a>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled reply_comment">
+                                <li>
+                                    <div class="media comment_author">
+                                        <img class="img_rounded" src="img/blog-single/comment_02.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <div class="comment_info">
+                                                <h3>Hans Down</h3>
+                                                <div class="comment_date">44 mins ago</div>
+                                            </div>
+                                            <p>Thenks Demo User for Wouldn’t it be better practice to use
+                                                get_the_title.</p>
+                                            <a href="#" class="comment_reply">Reply <i
+                                                    class="arrow_right"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media comment_author">
+                                        <img class="img_rounded" src="img/blog-single/comment_03.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <div class="comment_info">
+                                                <h3>Hans Down</h3>
+                                                <div class="comment_date">44 mins ago</div>
+                                            </div>
+                                            <p>Dropped a clanger up the kyver easy peasy vagabond victoria
+                                                sponge Charles tinkety tonk old fruit argy.!</p>
+                                            <a href="#" class="comment_reply">Reply <i
+                                                    class="arrow_right"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="post_comment">
+                            <div class="media comment_author">
+                                <img class="img_rounded" src="img/blog-single/comment_01.jpg" alt="">
+                                <div class="media-body">
+                                    <div class="comment_info">
+                                        <h3>Chauffina Carr</h3>
+                                        <div class="comment_date">04 mins ago</div>
+                                    </div>
+                                    <p>Wouldn’t it be better practice to use get_the_title(..) in this case?
+                                        directly accessing the post object’s data member would bypass
+                                        applying filters and enforcing protected and private settings,
+                                        unless that’s explicitly desired.</p>
+                                    <a href="#" class="comment_reply">Reply <i class="arrow_right"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="blog_comment_box topic_comment">
+                    <h2 class="c_head">Leave a Reply</h2>
+                    <p>Your email address will not be published. Required fields are marked *</p>
+                    <form class="get_quote_form row" action="#" method="post">
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" id="name" required>
+                            <label class="floating-label">Full Name *</label>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="email" class="form-control" id="email" required>
+                            <label class="floating-label">Email *</label>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="web" required>
+                            <label class="floating-label">Website (Optional)</label>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control message" required></textarea>
+                            <label class="floating-label">Comment type...</label>
+                        </div>
+                        <div class="col-md-12 form-group check_input">
+                            <input type="checkbox" id="fruit1" name="fruit-1" value="Apple">
+                            <label for="fruit1">Save my name, email, and website in this browser for the
+                                next time I comment.</label>
+                        </div>
+                        <div class="col-md-12 form-group"><button class="btn action_btn thm_btn"
+                                                                  type="submit">Post
+                            Comment</button></div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 doc_right_mobile_menu">
+                <div class="open_icon" id="right">
+                    <i class="arrow_carrot-left"></i>
+                    <i class="arrow_carrot-right"></i>
+                </div>
+                <div class="doc_rightsidebar scroll">
+                    <div class="pageSideSection">
+                        <select id="mySelect" name="os">
+                            <option value="windows" data-content="<i class='fab fa-windows'></i> Windows">Windows</option>
+                            <option value="ios" data-content="<i class='fab fa-apple'></i> Ios">Ios</option>
+                            <option value="linux" data-content="<i class='fab fa-linux'></i> Linux">Linux</option>
+                        </select>
+                        <div id="font-switcher" class="d-flex justify-content-between align-items-center">
+                            <div id="rvfs-controllers" class="fontsize-controllers group"></div>
+                            <a href="javascript:window.print()" class="print"><i class="icon_printer"></i></a>
+                        </div>
+                        <div class="table-of-content">
+                            <h6><i class="icon_ul"></i> CONTENTS</h6>
+                            <nav class="list-unstyled doc_menu" id="navbar-example3">
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

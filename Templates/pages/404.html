@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Blogs{% endblock %} 
+{% load static %}
+
+
+{% block content %}
+
+{% block seach_area_banner %}
+            {% include 'parts/blogs/blog_banner_search.html' %}
+{% endblock seach_area_banner %}
+
+
+{% block page_paths %}
+    {% include "parts/page_paths.html" %}
+{% endblock page_paths %}
+{% comment %} 
+
+{% block top_blogs_post %}
+            {% include 'parts/blogs/top_blogs_post.html' %}
+{% endblock top_blogs_post %} {% endcomment %}
+
+
+{% comment %} {% block blog_grid_area %}
+            {% include 'parts/blogs/blog_grid_area.html' %}
+{% endblock blog_grid_area %} {% endcomment %}
+
+
+<div class="breadcrumb_area_three">
+    <div class="container">
+        <div class="breadcrumb_text">
+            <h2>404 -<span> Page Not Found</span></h2>
+            <p>The page you're looking for doesn't exist.</p>
+        <p> Please visit the <a class="navbar-brand header_logo" href="{% url 'blog:home-view' %}"> home </a>page again</p> <p>and find the best content for you and keep smiling :) </p> 
+
+        </div>
+    </div>
+</div>
+
+{% comment %} 
+{% block subscribe_email %}
+            {% include 'parts/blogs/subscribe_email.html' %}
+{% endblock subscribe_email %} {% endcomment %}
+
+{% comment %} 
+{% block blog_mini_grid_area %}
+            {% include 'parts/blogs/blog_mini_grid_area.html' %}
+{% endblock blog_mini_grid_area %}
+ {% endcomment %}
+
+{% endblock %}

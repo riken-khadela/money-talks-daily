@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}home{% endblock %} 
+{% load static %}
+
+
+{% block content %}
+
+
+{% block home_search_area %}
+{% include 'parts/blogs/home_search_area.html' %}
+{% endblock home_search_area %}
+
+
+{% block doc_features_area %}
+            {% include 'components/doc_features_area.html' %}
+{% endblock doc_features_area %}
+
+{% block recommended_topic_area %}
+{% include 'components/recommand_topi_area.html' %}
+{% endblock recommended_topic_area %}
+
+
+{% block doc_community_area %}
+            {% include 'components/community_area.html' %}
+{% endblock doc_community_area %}
+
+
+
+{% endblock %}
