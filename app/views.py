@@ -58,6 +58,26 @@ class Contact(TemplateView):
     def post(self,request):
         return render(request,self.template_name)
     
+class About(TemplateView):
+    
+    template_name = "pages/about.html"
+    def get(self, request):
+        
+        return render(request, self.template_name)
+    
+    def post(self,request):
+        return render(request,self.template_name)
+    
+class TermsAndConditions(TemplateView):
+    
+    template_name = "pages/about.html"
+    def get(self, request):
+        
+        return render(request, self.template_name)
+    
+    def post(self,request):
+        return render(request,self.template_name)
+    
 class RedirectToHome(TemplateView):
     
     def get(self, request):
