@@ -84,6 +84,8 @@ class Contact(TemplateView):
             "Home",
             "Contacts",
         ]
+        
+        
         return render(request, self.template_name,{'path' : path})
     
     def post(self,request):
@@ -183,6 +185,15 @@ class BlogDetailsView(TemplateView):
         if not task_id:
             blog = get_object_or_404(Blog, slug=slug)
             return self.render_blog_detail(request, blog, None)
+        else :
+            try : 
+                task_obj = get_object_or_404(Task, task_id=task_id)
+            except :
+                task_obj = None
+                
+            if not task_obj :
+                blog = get_object_or_404(Blog, slug=slug)
+                return self.render_blog_detail(request, blog, None)
 
         # Get or create a user associated with the task
         if user_id:

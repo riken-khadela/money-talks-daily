@@ -43,16 +43,15 @@
     function getBlogIds() {
         const blogElements = document.querySelectorAll(".blog_ids");
         const blogIds = Array.from(blogElements).map((el) => el.id);
-        return blogIds.map(Number); // Convert IDs to integers
+        return blogIds.map(Number); 
     }
     
-    // Function to fetch more blogs
     function fetchMoreBlogs(event) {
-        event.preventDefault(); // Prevent default button behavior
+        event.preventDefault(); 
     
-        const API_URL = "/api/more-blogs/"; // Replace with your actual API endpoint
-        const blogGrid = document.querySelector(".blogGrid_appendChild"); // Adjust selector if needed
-        const loadMoreButton = document.querySelector(".all_doc_btn"); // Select the Load More button
+        const API_URL = "/api/more-blogs/"; 
+        const blogGrid = document.querySelector(".blogGrid_appendChild"); 
+        const loadMoreButton = document.querySelector(".all_doc_btn"); 
     
         const blogIds = getBlogIds(); 
         const myHeaders = new Headers();
@@ -76,18 +75,16 @@
             .then((data) => {
                 console.log(data,'resssss')
                 if (data.results.length === 0) {
-                    // If no more blogs, display a message
+                    
                     const message = document.createElement("div");
                     message.classList.add("col-lg-12", "text-center");
                     message.innerHTML = "<p>That's all blogs!</p>";
                     blogGrid.appendChild(message);
     
-                    // Hide the Load More button
                     loadMoreButton.style.display = "none";
                     return;
                 }
     
-                // Append new blogs to the grid
                 data.results.forEach((blog) => {
                     const blogDiv = document.createElement("div");
                     blogDiv.classList.add("col-lg-4", "col-sm-6", "blog_ids");

@@ -148,34 +148,5 @@ class RandomRedirection(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     
     
-# class MainRedirectBlogs(models.Model):
-#     blog = models.ForeignKey(Blog, related_name='redirect_blogs_data', on_delete=models.CASCADE)
-    
-# class RedirectBlogs(models.Model):
-#     configuration = models.ManyToManyField('MainRedirectBlogs', related_name='MainRedirectBlogs')
-    
-# class MainRedirections(models.Model):
-#     redirections_id = models.TextField()
-#     final_link = models.URLField(null=True, blank=True)
-    
-# class RandomRedirection(models.Model):
-#     genrated_redirections_id = models.TextField()
-#     main_redirect_blogs = models.ForeignKey(RedirectBlogs, related_name='RedirectBlogs', on_delete=models.CASCADE, blank=True, null=True )
-    # blog = models.ForeignKey(Blog, related_name='redirected_blogs_or_not', on_delete=models.CASCADE ,blank=True, null=True)
-    # redirected_or_not = models.BooleanField(default=False)
-
-# ----------------------------------------------------
-# class Redirect_stors(models.Model):
-#     redirect_id = models.TextField(null=True, blank=True)
-#     blogs = models.ManyToManyField(Blog,related_name='blogs_redirected', null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-    
-# class Redirected_blog(models.Model):
-#     Redirect_stors = models.ForeignKey(Redirect_stors, related_name='Redirect_stors', on_delete=models.CASCADE)
-#     blog = models.ForeignKey(Blog, related_name='redirected_blogs_data', on_delete=models.CASCADE)
-#     redirected_or_not = models.BooleanField(default=False)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     redirected_at = models.DateTimeField(auto_now=True)
-    
-    
+class ContactDetails(models.Model):
+    pass
