@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import RedirectToHome, HomeView, TestView, BlogMainView, BlogDetailsView, TagViews, BlogSearchAPIView, CategoryDetailView, Contact, About, TermsAndConditions
+from .views import RedirectToHome, HomeView, TestView, BlogMainView, BlogDetailsView, TagViews, BlogSearchAPIView, CategoryDetailView, Contact, About, TermsAndConditions,MoreBlogsAPIView
 
 app_name = 'blog' 
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('category/<slug:slug>/', CategoryDetailView.as_view(), name='category_detail'),  # Add this line
 
     path("api/search/", BlogSearchAPIView.as_view(), name="blog-search"),
+    path("api/more-blogs/", MoreBlogsAPIView.as_view(), name="more-blogs"),
 ]

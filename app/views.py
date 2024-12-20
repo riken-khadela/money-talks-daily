@@ -14,6 +14,8 @@ from django.db.models import Count
 import random, string
 from django.utils import timezone
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 
@@ -21,22 +23,9 @@ from django.db.models import Q
 class HomeView(TemplateView):
     
     template_name = "pages/index.html"
-    # def get(self, request):
-    #     blogs = Blog.objects.filter(trend=False)
-    #     for blog in blogs:
-    #         blog.full_url = request.build_absolute_uri(blog.get_absolute_url())
-    #         if len(blog.content) > 75 :
-    #             blog.content = blog.content[:75] + '...'
-                
-    #     trending_blogs = Blog.objects.filter(trend=True)
-    #     for trending_blog in trending_blogs:
-    #         trending_blog.full_url = request.build_absolute_uri(trending_blog.get_absolute_url())
-    #         if len(trending_blog.content) > 75 :
-    #             trending_blog.content = trending_blog.content[:140] + '...'
-                
-    #     return render(request, self.template_name, {'blogs': blogs,"trending_blogs" : trending_blogs})
     
     def get(self, request):
+        
         path = [
             "Home"
         ]
@@ -60,11 +49,14 @@ class HomeView(TemplateView):
             blogs = Blog.objects.exclude(id=trending_blog.id if trending_blog else None)
 
         # Annotate blogs with full URLs and truncated content
+        
         for blog in blogs:
             blog.full_url = request.build_absolute_uri(blog.get_absolute_url())
             blog.content = blog.content[:75] + '...' if len(blog.content) > 75 else blog.content
 
         # Context for rendering the template
+        
+        for blg in blogs : blg.content
         context = {
             'blogs': blogs,
             "trending_blogs": [trending_blog] if trending_blog else [],
@@ -344,6 +336,40 @@ class BlogSearchAPIView(View):
         ]
 
         return Response({"results": results}, status=200)
+    
+from rest_framework.views import APIView
+import json
+@method_decorator(csrf_exempt, name='dispatch')
+class MoreBlogsAPIView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            # Parse JSON body
+            body = json.loads(request.body)
+            exclude_ids = body.get('id', [])
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON data."}, status=400)
+
+        # Validate that exclude_ids is a list
+        if not isinstance(exclude_ids, list):
+            return JsonResponse({"error": "'ids' must be a list."}, status=400)
+
+        # Fetch blogs excluding given IDs
+        blogs = Blog.objects.exclude(id__in=exclude_ids).order_by('-created_at')[:8]
+
+        # Serialize blog data
+        results = [
+            {
+                "id": blog.id,
+                "title": blog.title,
+                "author": blog.author,
+                "url": blog.get_absolute_url(),
+                "excerpt": blog.content[:75] + '...' if len(blog.content) > 75 else blog.content,
+                "image": blog.image,
+            }
+            for blog in blogs
+        ]
+
+        return JsonResponse({"results": results}, status=200)
 
 
     
