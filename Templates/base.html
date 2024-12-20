@@ -49,11 +49,16 @@
         
         
         
-       
-        {% block navbar %}
-            {% include 'parts/navbar.html' %}
-        {% endblock navbar %}
+        
+         {% block navbar %}
+             {% include 'parts/navbar.html' %}
+         {% endblock navbar %}
 
+        
+         {% block searchbar %}
+             {% include 'parts/searchbar.html' %}
+         {% endblock searchbar %}
+        
         {% block content %} {% endblock %}
 
         {% block footer %}

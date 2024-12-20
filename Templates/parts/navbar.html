@@ -73,7 +73,7 @@
                 {% comment %}---------------------------- About ---------------------------- {% endcomment %}
 
                 <li class="nav-item dropdown submenu mega_menu tab-demo">
-                    <a href="{% url 'blog:blogs_main' %}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                    <a href="{% url 'blog:blogs_about' %}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">About</a>
                     {% comment %} <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="true"
                         data-toggle="dropdown"></i>
@@ -269,7 +269,7 @@
                 {% comment %}---------------------------- T&C ---------------------------- {% endcomment %}
 
                 <li class="nav-item dropdown submenu">
-                    <a class="nav-link dropdown-toggle" href="forums.html" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="{% url 'blog:blogs_TermsAndConditions' %}" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Terms And Conditions
                     </a>

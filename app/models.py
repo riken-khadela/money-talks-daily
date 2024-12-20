@@ -44,7 +44,8 @@ class Tag(TimeStampModel):
 
     def __str__(self):
         return self.name
-          
+
+    
 class Blog(TimeStampModel):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200, default="UNKNOWN")

@@ -1,55 +1,36 @@
-{% block blog_grid_area %}
-{% load static %}
+{% block blog_grid_area %} {% load static %}
 <section class="doc_blog_grid_area">
-    <!-- <div class="blog_grid_inner bg_color">
-        <div class="container">
-            <ul class="nav blog_tab">
-                {% for category in categories %}
-                <li class="nav-item col-md text-center cat-woocommerce">
-                    <a class="nav-link" href="{% url 'category_detail' category.slug %}">{{category.name}}</a>
-                </li>
-                {% empty %}
-                    <li>No categories available.</li>
-                {% endfor %}
-                
-                <li class="nav-item cat-others">
-                    <a class="nav-link" href="#">Others</a>
-                </li>
-            </ul>
-        </div>
-    </div> -->
+
     <div class="container">
         <div class="row blog_grid_tab">
 
             {% for blog in blogs %}
-                <div class="col-lg-4 col-sm-6">
-                    <div class="blog_grid_post shadow-sm wow fadeInUp">
-                        <img style="height: 220px; width: 370px;" src="{{ blog.image }}" alt="">
-                        <div class="grid_post_content">
-                            <div class="post_tag">
-                                <a href="{{ blog.full_url }}">18 Min Read</a>
-                                <a class="c_blue" href="#">WordPress</a>
-                            </div>
-                            <a href="{{ blog.full_url }}">
-                                <h4 class="b_title">{{ blog.title }}</h4>
-                            </a>
-                            <p>{{ blog.content }}</p>
-                    <a href="{{ blog.full_url }}" class="learn_btn">Continue Reading<i class="arrow_right"></i></a>
+            <div class="col-lg-4 col-sm-6">
+                <div class="blog_grid_post shadow-sm wow fadeInUp">
+                    <img style="height: 220px; width: 370px;" src="{{ blog.image }}" alt="">
+                    <div class="grid_post_content">
+                        <div class="post_tag">
+                            <a href="{{ blog.full_url }}">18 Min Read</a>
+                        </div>
+                        <a href="{{ blog.full_url }}">
+                            <h4 class="b_title">{{ blog.title }}</h4>
+                        </a>
+                        <p>{{ blog.content }}</p>
+                        <a href="{{ blog.full_url }}" class="learn_btn">Continue Reading<i class="arrow_right"></i></a>
 
-                            <div class="media post_author">
-                                <div class="round_img">
-                                    <img src="{{ blog.image }}" alt="">
-                                </div>
-                                <div class="media-body author_text">
-                                    <h4>Jason Response</h4>
-                                    <div class="date">{{ blog.created_at|date:"F j, Y" }}</div>
-                                </div>
+                        <div class="media post_author">
+                            <div class="round_img">
+                                <img src="{{ blog.author_image }}" alt="">
+                            </div>
+                            <div class="media-body author_text">
+                                <h4>Jason Response</h4>
+                                <div class="date">{{ blog.created_at|date:"F j, Y" }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-{% comment %} 
+            </div>
+            {% endfor %} {% comment %}
             <div class="col-lg-4 col-sm-6">
                 <div class="blog_grid_post shadow-sm wow fadeInUp">
                     <img src={% static 'img/blog-grid/blog_grid_post1.jpg' %} alt="">

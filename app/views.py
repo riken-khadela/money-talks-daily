@@ -21,21 +21,57 @@ from django.db.models import Q
 class HomeView(TemplateView):
     
     template_name = "pages/index.html"
+    # def get(self, request):
+    #     blogs = Blog.objects.filter(trend=False)
+    #     for blog in blogs:
+    #         blog.full_url = request.build_absolute_uri(blog.get_absolute_url())
+    #         if len(blog.content) > 75 :
+    #             blog.content = blog.content[:75] + '...'
+                
+    #     trending_blogs = Blog.objects.filter(trend=True)
+    #     for trending_blog in trending_blogs:
+    #         trending_blog.full_url = request.build_absolute_uri(trending_blog.get_absolute_url())
+    #         if len(trending_blog.content) > 75 :
+    #             trending_blog.content = trending_blog.content[:140] + '...'
+                
+    #     return render(request, self.template_name, {'blogs': blogs,"trending_blogs" : trending_blogs})
+    
     def get(self, request):
-        blogs = Blog.objects.filter(trend=False)
+        path = [
+            "Home"
+        ]
+        # Retrieve search query from request
+        search_query = request.GET.get('search', '').strip()
+
+        # Fetch the trending blog
+        trending_blog = Blog.objects.filter(trend=True).order_by('?').first()
+        if trending_blog:
+            trending_blog.full_url = request.build_absolute_uri(trending_blog.get_absolute_url())
+            trending_blog.content = trending_blog.content[:140] + '...' if len(trending_blog.content) > 140 else trending_blog.content
+
+        # Fetch blogs based on the search query or exclude the trending blog
+        if search_query:
+            blogs = Blog.objects.filter(
+                Q(title__icontains=search_query) |
+                Q(content__icontains=search_query) |
+                Q(author__icontains=search_query)
+            ).distinct()
+        else:
+            blogs = Blog.objects.exclude(id=trending_blog.id if trending_blog else None)
+
+        # Annotate blogs with full URLs and truncated content
         for blog in blogs:
             blog.full_url = request.build_absolute_uri(blog.get_absolute_url())
-            if len(blog.content) > 75 :
-                blog.content = blog.content[:75] + '...'
-                
-        trending_blogs = Blog.objects.filter(trend=True)
-        for trending_blog in trending_blogs:
-            trending_blog.full_url = request.build_absolute_uri(trending_blog.get_absolute_url())
-            if len(trending_blog.content) > 75 :
-                trending_blog.content = trending_blog.content[:140] + '...'
-                
-        return render(request, self.template_name, {'blogs': blogs,"trending_blogs" : trending_blogs})
-    
+            blog.content = blog.content[:75] + '...' if len(blog.content) > 75 else blog.content
+
+        # Context for rendering the template
+        context = {
+            'blogs': blogs,
+            "trending_blogs": [trending_blog] if trending_blog else [],
+            'path' : path
+        }
+
+        return render(request, self.template_name, context)
     
     
 class TestView(TemplateView):
@@ -52,8 +88,11 @@ class Contact(TemplateView):
     
     template_name = "pages/contact.html"
     def get(self, request):
-        
-        return render(request, self.template_name)
+        path = [
+            "Home",
+            "Contacts",
+        ]
+        return render(request, self.template_name,{'path' : path})
     
     def post(self,request):
         return render(request,self.template_name)
@@ -62,19 +101,26 @@ class About(TemplateView):
     
     template_name = "pages/about.html"
     def get(self, request):
-        
-        return render(request, self.template_name)
+        path = [
+            "Home",
+            "About",
+        ]
+        return render(request, self.template_name,{'path' : path})
     
     def post(self,request):
         return render(request,self.template_name)
     
 class TermsAndConditions(TemplateView):
     
-    template_name = "pages/about.html"
+    template_name = "pages/TermsAndConditions.html"
     def get(self, request):
         
-        return render(request, self.template_name)
-    
+        path = [
+            "Home",
+            "TermsAndConditions",
+        ]
+        return render(request, self.template_name,{'path' : path})
+        
     def post(self,request):
         return render(request,self.template_name)
     
@@ -89,23 +135,16 @@ class BlogMainView(TemplateView):
     
     template_name = "pages/blog_main_page.html"
     def get(self, request):
-        blogs = Blog.objects.filter(trend=False)
+        path = [
+            "Home",
+            "Blogs",
+        ]
+        blogs = Blog.objects.all()
         for blog in blogs:
             blog.full_url = request.build_absolute_uri(blog.get_absolute_url())
             if len(blog.content) > 75 :
                 blog.content = blog.content[:75] + '...'
-                
-        trending_blogs = Blog.objects.filter(trend=True)
-        for trending_blog in trending_blogs:
-            trending_blog.full_url = request.build_absolute_uri(trending_blog.get_absolute_url())
-            if len(trending_blog.content) > 75 :
-                trending_blog.content = trending_blog.content[:140] + '...'
-        
-        # categories = Category.objects.annotate(blog_count=Count('blogs')).order_by('-blog_count')[:7]
-        # for trending_cat in categories:
-        #     trending_cat.full_url = request.build_absolute_uri(trending_cat.get_absolute_url())
-                
-        return render(request, self.template_name, {'blogs': blogs,"trending_blogs" : trending_blogs})
+        return render(request, self.template_name, {'blogs': blogs, 'path' : path})
     
     def post(self,request):
         return render(request,self.template_name)
@@ -114,6 +153,10 @@ class BlogMainView(TemplateView):
 from .models import (Blog, User, MainRedirections, Task
                      , RedirectBlogs, RandomRedirection
                      )
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 
 class BlogDetailsView(TemplateView):
     
@@ -172,6 +215,7 @@ class BlogDetailsView(TemplateView):
         task = Task.objects.filter(task_id=task_id).first()
         is_last_blog = not next_blog  # If there is no next blog, it's the last blog
 
+        
         # Render the current blog with the next blog URL
         return self.render_blog_detail(request, blog, next_blog_url, task, is_last_blog)
     
@@ -193,7 +237,11 @@ class BlogDetailsView(TemplateView):
         recent_blogs = Blog.objects.filter(created_at__lte=timezone.now()).order_by('-created_at')[:5]
 
         # Render template with context
-        
+        path = [
+            "Home",
+            "Blogs",
+            blog.title
+        ]
         return render(request, self.template_name, {
             'blogs': blog,
             "contents": Content.objects.filter(blog=blog).order_by('created_at'),
@@ -205,6 +253,7 @@ class BlogDetailsView(TemplateView):
             "next_blog_url": next_blog_url,  # Include the next blog URL if it exists
             "task": task,  # Pass the task content if it exists
             "is_last_blog": is_last_blog,
+            "path" : path
         })
         
         
@@ -268,15 +317,33 @@ class TagViews(TemplateView):
         return render(request,self.template_name)
     
     
-class SearchView(View):
-    def get(self, request):
-        breakpoint()
-        query = request.GET.get('q')
-        results = []
-        if query:
-            results = Blog.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).values('id', 'title', 'content', 'slug')
-        
-        return JsonResponse({'results': list(results)}) 
+class BlogSearchAPIView(View):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get("q", "").strip()
+        if not query:
+            return Response({"error": "Query parameter `q` is required."}, status=400)
+
+        # Perform the search
+        blogs = Blog.objects.filter(
+            Q(title__icontains=query) |  
+            Q(content__icontains=query) |  
+            Q(author__icontains=query)  
+        ).distinct()
+
+        results = [
+            {
+                "title": blog.title,
+                "author": blog.author,
+                "url": blog.get_absolute_url(),
+                "excerpt": blog.content[:140] + "..." if len(blog.content) > 140 else blog.content,
+                "image": blog.image,
+            }
+            for blog in blogs
+        ]
+
+        return Response({"results": results}, status=200)
 
 
     
