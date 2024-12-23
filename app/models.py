@@ -53,7 +53,7 @@ class Blog(TimeStampModel):
     read_time = models.IntegerField(null=True, blank=True)
     trend = models.BooleanField(default=False)
     slug = models.SlugField(null=True, blank=True,max_length=200, unique=True)
-    image = models.URLField()
+    image = models.URLField(null=True, blank=True)
     main_image = models.ImageField(upload_to='blog_image/',blank=True, null=True)
     author_image = models.URLField(default='https://png.pngtree.com/png-vector/20221110/ourmid/pngtree-silhouette-of-anonymous-man-in-mugshot-lineup-isolated-on-white-background-png-image_6441511.png')
     tag = models.ManyToManyField(Tag,null=True, blank=True)
@@ -95,7 +95,7 @@ class Content(models.Model):
     content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES)  # Using choices
     text_content = models.TextField(blank=True, null=True)  # For paragraphs and quotes
     author = models.CharField(max_length=200, default="UNKNOWN")
-    image_url = models.ImageField(upload_to='blog_content/')
+    image_url = models.ImageField(upload_to='blog_content/',null=True, blank=True)
     link_url = models.URLField(max_length=200, null=True, blank=True)  # For links
     created_at = models.DateTimeField(auto_now_add=True)
 
