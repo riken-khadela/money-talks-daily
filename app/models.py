@@ -95,7 +95,7 @@ class Content(models.Model):
     content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES)  # Using choices
     text_content = models.TextField(blank=True, null=True)  # For paragraphs and quotes
     author = models.CharField(max_length=200, default="UNKNOWN")
-    image_url = models.ImageField(upload_to='blog_content/',blank=True, null=True)
+    image_url = models.ImageField(upload_to='blog_content/')
     link_url = models.URLField(max_length=200, null=True, blank=True)  # For links
     created_at = models.DateTimeField(auto_now_add=True)
 

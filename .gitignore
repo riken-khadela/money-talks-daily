@@ -9,3 +9,4 @@
 db.sqlite3
 media/blog_image/*
 media/blog_content/*
+app/__pycache__/*
