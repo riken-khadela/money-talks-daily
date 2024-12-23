@@ -26,7 +26,7 @@
                             {% elif content.content_type == 'heading' %}
                                 <h2>{{ content.text_content }}</h2>
                             {% elif content.content_type == 'image' %}
-                                <img src="{{ content.image_url }}" alt="">
+                                <img src="{{ content.image_url.url }}" alt="">
                             {% endif %}
                             
                         {% endfor %}

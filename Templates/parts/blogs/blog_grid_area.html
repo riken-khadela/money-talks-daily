@@ -7,10 +7,11 @@
             {% for blog in blogs %}
             <div class="col-lg-4 col-sm-6 blog_ids {{blog.id}}" id={{blog.id}}>
                 <div class="blog_grid_post shadow-sm wow fadeInUp">
-                    <img style="height: 220px; width: 370px;" src="{{ blog.image }}" alt="">
+                    <img style="width: 100%;height: 100%;" src="{{ blog.main_image.url }}" alt="">
+                    
                     <div class="grid_post_content">
                         <div class="post_tag">
-                            <a href="{{ blog.full_url }}">18 Min Read</a>
+                            <a href="{{ blog.full_url }}">{{ blog.read_time }} Min Read</a>
                         </div>
                         <a href="{{ blog.full_url }}">
                             <h4 class="b_title">{{ blog.title }}</h4>

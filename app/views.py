@@ -375,7 +375,8 @@ class MoreBlogsAPIView(View):
                 "author": blog.author,
                 "url": blog.get_absolute_url(),
                 "excerpt": blog.content[:75] + '...' if len(blog.content) > 75 else blog.content,
-                "image": blog.image,
+                "image": blog.main_image.url,
+                "created_at": blog.created_at.strftime('%b %d, %Y'),
             }
             for blog in blogs
         ]
