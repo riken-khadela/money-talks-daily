@@ -22,7 +22,6 @@
                             {% if content.content_type == 'quote' %}
                                 <blockquote>
                                     <h4 class="c_head">{{ content.text_content }}</h4>
-                                    <div class="author">{{ content.author }}</div>
                                 </blockquote>
                             {% elif content.content_type == 'link' %}
                                 <a href="{{ content.link_url }}">{{ content.text_content }}</a>
