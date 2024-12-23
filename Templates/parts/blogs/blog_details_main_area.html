@@ -9,15 +9,15 @@
                 <div class="blog_single_info">
                     <div class="blog_single_item">
                         {% if blogs.main_image %}
-                                <img style="width: 100%;height: 100%;" src="{{ blogs.main_image.url }}" alt="Main image of blog">
+                                <img style="width: 100%;height: 100%;margin-bottom: 2em;" src="{{ blogs.main_image.url }}" alt="Main image of blog">
                         {% else %}
                             <!-- Optional fallback for when main_image is not present -->
                             {% if blogs.image %}
-                                    <img style="width: 100%;height: 100%;" src="{{ blogs.image }}" alt="Fallback image of blog">
+                                    <img style="width: 100%;height: 100%;margin-bottom: 2em;" src="{{ blogs.image }}" alt="Fallback image of blog">
                             {% endif %}
                         {% endif %}
 
-
+                        
                         {% for content in contents %}
                             {% if content.content_type == 'quote' %}
                                 <blockquote>
