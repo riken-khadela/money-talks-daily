@@ -5,7 +5,7 @@ from .portfolio_views import (MainPortfolioView, AboutPortfolioView, PortfolioGr
 app_name = 'blog' 
 
 urlpatterns = [
-    path('home/', HomeView.as_view(), name='home-view'), 
+    path('', HomeView.as_view(), name='home-view'), 
     path('blogs/', BlogMainView.as_view(), name='blogs_main'), 
     path('contact/', Contact.as_view(), name='blogs_contact'), 
     path('about/', About.as_view(), name='blogs_about'), 
