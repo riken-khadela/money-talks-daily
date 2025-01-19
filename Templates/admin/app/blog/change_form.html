@@ -1,0 +1,57 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Monitor content_type selection
+        document.querySelectorAll('select[name$="-content_type"]').forEach(function (selectElement) {
+            selectElement.addEventListener('change', function () {
+                const selectedType = this.value;
+                const container = this.closest('.inline-related');
+                
+                // Hide all fields
+                container.querySelectorAll('.form-row').forEach(row => {
+                    row.style.display = 'none';
+                });
+    
+                // Always show content_type and order fields
+                container.querySelectorAll('.form-row.field-content_type, .form-row.field-order').forEach(row => {
+                    row.style.display = '';
+                });
+    
+                // Show relevant fields based on content_type
+                if (selectedType === 'paragraph' || selectedType === 'quote' || selectedType === 'heading') {
+                    container.querySelectorAll('.form-row.field-text_content').forEach(row => {
+                        row.style.display = '';
+                    });
+                }
+                if (selectedType === 'quote') {
+                    container.querySelectorAll('.form-row.field-author').forEach(row => {
+                        row.style.display = '';
+                    });
+                }
+                if (selectedType === 'link') {
+                    container.querySelectorAll('.form-row.field-link_url').forEach(row => {
+                        row.style.display = '';
+                    });
+                }
+                if (selectedType === 'image') {
+                    container.querySelectorAll('.form-row.field-image_url').forEach(row => {
+                        row.style.display = '';
+                    });
+                }
+            });
+    
+            // Trigger change event on load to set initial state
+            selectElement.dispatchEvent(new Event('change'));
+        });
+    });
+    
+</script>
+{% endblock %}

@@ -58,22 +58,25 @@ class Blog(TimeStampModel):
     author_image = models.URLField(default='https://png.pngtree.com/png-vector/20221110/ourmid/pngtree-silhouette-of-anonymous-man-in-mugshot-lineup-isolated-on-white-background-png-image_6441511.png')
     tag = models.ManyToManyField(Tag,null=True, blank=True)
     category = models.ManyToManyField(Category,related_name='blogs', null=True, blank=True)
+    portfolio = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        new_slug = False
         if not self.slug:
-            # Automatically create a slug from the title
+            new_slug = True
             self.slug = slugify(self.title)
         
         if not self.read_time:
             self.read_time = random.randint(10, 22)
         
-        # Ensure the slug is unique by appending a random number if needed
         original_slug = self.slug
-        num = 1
-        while Blog.objects.filter(slug=self.slug).exists():
-            self.slug = f"{original_slug}-{num}"
-            num += 1
-        
+        if new_slug == True :
+            while True :
+                if Blog.objects.filter(slug=self.slug).exists() :
+                    self.slug = f"{original_slug}-{random.randint(100000,9999999)}"
+                else :
+                    break
+                
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -82,25 +85,34 @@ class Blog(TimeStampModel):
     def __str__(self):
         return self.title
     
-    
+from adminsortable.models import SortableMixin
+
 class Content(models.Model):
     CONTENT_TYPE_CHOICES = [
         ('paragraph', 'Paragraph'),
         ('quote', 'Quote'),
         ('link', 'Link'),
         ('image', 'Image'),
-        ('heading', 'heading'),
+        ('heading', 'Heading'),
     ]
+    id = models.IntegerField(primary_key=True) 
     blog = models.ForeignKey(Blog, related_name='contents', on_delete=models.CASCADE)
-    content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES)  # Using choices
-    text_content = models.TextField(blank=True, null=True)  # For paragraphs and quotes
+    content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES)
+    text_content = models.TextField(blank=True, null=True)
+    image_url = models.ImageField(upload_to='blog_content/', null=True, blank=True)
+    link_url = models.URLField(max_length=200, null=True, blank=True)
     author = models.CharField(max_length=200, default="UNKNOWN")
-    image_url = models.ImageField(upload_to='blog_content/',null=True, blank=True)
-    link_url = models.URLField(max_length=200, null=True, blank=True)  # For links
     created_at = models.DateTimeField(auto_now_add=True)
+    order = models.PositiveIntegerField(default=0, db_index=True)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return f"{self.content_type} for {self.blog.title}"
+    
+    
+    
   
   
 class Comment(models.Model):

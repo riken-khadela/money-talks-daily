@@ -68,7 +68,7 @@ class HomeView(TemplateView):
     
 class TestView(TemplateView):
     
-    template_name = "pages/test.html"
+    template_name = "portfolio/index.html"
     def get(self, request):
         
         return render(request, self.template_name)
@@ -133,7 +133,10 @@ class BlogMainView(TemplateView):
             "Home",
             "Blogs",
         ]
-        blogs = Blog.objects.all()
+        blogs = Blog.objects.filter(portfolio=False).order_by('?')
+        if len(blogs) >= 8 :
+            blogs = blogs[:8]
+            
         for blog in blogs:
             blog.full_url = request.build_absolute_uri(blog.get_absolute_url())
             if len(blog.content) > 75 :
@@ -247,7 +250,7 @@ class BlogDetailsView(TemplateView):
         ]
         return render(request, self.template_name, {
             'blogs': blog,
-            "contents": Content.objects.filter(blog=blog).order_by('created_at'),
+            "contents": Content.objects.filter(blog=blog).order_by('order'),
             "related_blogs": related_blogs,
             'comments': comments,
             "tags": blog.tag.all(),
@@ -365,7 +368,7 @@ class MoreBlogsAPIView(View):
             return JsonResponse({"error": "'ids' must be a list."}, status=400)
 
         # Fetch blogs excluding given IDs
-        blogs = Blog.objects.exclude(id__in=exclude_ids).order_by('-created_at')[:8]
+        blogs = Blog.objects.filter(portfolio=False).exclude(id__in=exclude_ids).order_by('-created_at')[:8]
 
         # Serialize blog data
         results = [
@@ -402,6 +405,75 @@ class CategoryDetailView(TemplateView):
         
         
 
+    
+@method_decorator(csrf_exempt, name='dispatch')
+class UploadBlogsAPIView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            
+            body = json.loads(request.body)
+            exclude_ids = body.get('id', [])
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON data."}, status=400)
+
+        # Validate that exclude_ids is a list
+        if not isinstance(exclude_ids, list):
+            return JsonResponse({"error": "'ids' must be a list."}, status=400)
+
+        # Fetch blogs excluding given IDs
+        blogs = Blog.objects.filter(portfolio=False).exclude(id__in=exclude_ids).order_by('-created_at')[:8]
+
+        # Serialize blog data
+        results = [
+            {
+                "id": blog.id,
+                "title": blog.title,
+                "author": blog.author,
+                "url": blog.get_absolute_url(),
+                "excerpt": blog.content[:75] + '...' if len(blog.content) > 75 else blog.content,
+                "image": blog.main_image.url,
+                "created_at": blog.created_at.strftime('%b %d, %Y'),
+            }
+            for blog in blogs
+        ]
+
+        return JsonResponse({"results": results}, status=200)
+
+        
+
 def custom_404(request, exception):
     """Custom 404 error page"""
     return render(request, 'pages/404.html', status=404)
+
+
+[
+    {
+        ""
+    }
+]
+
+from django.views.generic.detail import DetailView
+
+class BlogDetailView(DetailView):
+    model = Blog
+    template_name = 'admin/blog_detail.html'
+    
+    
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Content
+
+@csrf_exempt
+def update_content_order(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            for item in data:
+                content = Content.objects.get(id=item['id'])
+                content.order = item['order']
+                content.save()
+            return JsonResponse({'status': 'success'}, status=200)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
