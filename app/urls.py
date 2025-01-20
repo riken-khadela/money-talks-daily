@@ -11,7 +11,7 @@ urlpatterns = [
     path('about/', About.as_view(), name='blogs_about'), 
     path('TermsAndConditions/', TermsAndConditions.as_view(), name='blogs_TermsAndConditions'), 
     path('', RedirectToHome.as_view(), name='redirect-to-home'), 
-    path('blogs/<slug:slug>/', BlogDetailsView.as_view(), name='blog_detail'),
+    path('/<slug:slug>/', BlogDetailsView.as_view(), name='blog_detail'),
     path('tags/<slug:slug>/', TagViews.as_view(), name='tag_view'),
     path('category/<slug:slug>/', CategoryDetailView.as_view(), name='category_detail'),  # Add this line
 

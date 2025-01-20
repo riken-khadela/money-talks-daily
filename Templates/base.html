@@ -6,13 +6,44 @@
 
 <head>
     <!-- Required meta tags -->
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Dynamic SEO Tags -->
+    <title>{% block meta_title %}Money talks daily{% endblock %}"</title>
+    <meta name="description" content="{% block meta_description %}Default description for your site.{% endblock %}">
+    
+    <meta name="keywords" content="{% block meta_keywords %}personal finance, financial tips, money management, saving money, investing, debt reduction, passive income, retirement planning, financial independence, compound interest, money-saving apps, sustainable investing, credit score improvement, side hustles, online shopping deals, cryptocurrency, financial security, budgeting tips, financial literacy, smart money habits{% endblock %}">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Default Title{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Default description{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'img/default-og-image.jpg' %}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:site_name" content="Money Talks Daily">
+
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Default Title{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Default description{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% static 'img/default-twitter-image.jpg' %}{% endblock %}">
+
+    <!-- Additional Meta Tags for SEO -->
+    <meta name="author" content="Money Talks Daily">
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="ca-pub-4813866972494060">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <meta name="theme-color" content="#317EFB">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/slick/slick.css' %}">
     <link rel="stylesheet" href="{% static 'assets/slick/slick-theme.css' %}">
+    
     <!-- icon css-->
     <link rel="stylesheet" href="{% static 'assets/elagent-icon/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/niceselectpicker/nice-select.css' %}">
@@ -22,7 +53,23 @@
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <title>Home</title>
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Money Talks Daily",
+            "url": "https://moneytalksdaily.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://moneytalksdaily.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+    </script>
 
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>

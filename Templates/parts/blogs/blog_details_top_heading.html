@@ -9,11 +9,8 @@
         <div class="breadcrumb_content">
             <h1>{{ blogs.title }}</h1>
             <div class="single_post_author">
-                
-                {% if blogs.author_image  %}
+                {% if blogs.author_image %}
                     <img class="author_img" src="{{ blogs.author_image }}" alt="">
-                {% comment %} {% else %}
-                    <img class="author_img" src="https://static.vecteezy.com/system/resources/thumbnails/035/857/779/small_2x/people-face-avatar-icon-cartoon-character-png.png" alt=""> {% endcomment %}
                 {% endif %}
                 <div class="text">
                     <a href="#"><h4>{{ blogs.author }}</h4></a>
@@ -26,5 +23,4 @@
         </div>
     </div>
 </section>
-
 {% endblock blog_details_top_heading %}

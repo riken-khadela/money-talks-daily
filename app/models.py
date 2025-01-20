@@ -1,3 +1,4 @@
+import keyword
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
@@ -59,8 +60,25 @@ class Blog(TimeStampModel):
     tag = models.ManyToManyField(Tag,null=True, blank=True)
     category = models.ManyToManyField(Category,related_name='blogs', null=True, blank=True)
     portfolio = models.BooleanField(default=False)
+    keywords = models.TextField(null=True, blank=True)
+    
 
     def save(self, *args, **kwargs):
+        keywords_list = [
+                "personal finance","financial tips","money management","saving money",
+                "investing","debt reduction","passive income","retirement planning",
+                "financial independence","compound interest","money-saving apps",
+                "sustainable investing","credit score improvement","side hustles",
+                "online shopping deals","cryptocurrency","financial security",
+                "budgeting tips","financial literacy","smart money habits"
+            ]
+        
+        for key in keywords_list :
+            if not key in self.keywords :
+                if not self.keywords.endswith(',') and self.keywords:
+                    self.keywords += ', '
+                self.keywords += key
+        
         new_slug = False
         if not self.slug:
             new_slug = True
@@ -94,6 +112,7 @@ class Content(models.Model):
         ('link', 'Link'),
         ('image', 'Image'),
         ('heading', 'Heading'),
+        ('sub_heading', 'Sub_Heading'),
     ]
     id = models.IntegerField(primary_key=True) 
     blog = models.ForeignKey(Blog, related_name='contents', on_delete=models.CASCADE)

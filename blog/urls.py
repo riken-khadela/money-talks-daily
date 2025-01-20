@@ -19,8 +19,27 @@ from django.urls import path, include
 from django.conf.urls import handler404
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import Sitemap
+from app.models import Blog
+
+class BlogPostSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 0.8
+
+    def items(self):
+        return Blog.objects.all()
+
+    def lastmod(self, obj):
+        return obj.updated_at  # Use your model's updated field
+
+
+sitemaps = {
+    'posts': BlogPostSitemap,
+}
 
 urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('admin/', admin.site.urls),
     path('',include('app.urls',namespace='blog')),
 ]
