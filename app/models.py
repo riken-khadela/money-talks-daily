@@ -114,7 +114,6 @@ class Content(models.Model):
         ('heading', 'Heading'),
         ('sub_heading', 'Sub_Heading'),
     ]
-    id = models.IntegerField(primary_key=True) 
     blog = models.ForeignKey(Blog, related_name='contents', on_delete=models.CASCADE)
     content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES)
     text_content = models.TextField(blank=True, null=True)
