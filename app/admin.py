@@ -45,10 +45,14 @@ class ContentInline(SortableInlineAdminMixin, admin.StackedInline):
             # Generate the display with the content type and preview
             return format_html(
                 '<div style="margin-bottom: 10px;">'
-                '<strong>Content:</strong> {} for "{}" '
+                '<strong>id {}</strong> '
+                '</br>'
+                '</br>'
+                '<strong>Content </strong> {} for "{}" '
                 '<button type="button" class="collapse-row-btn" style="cursor: pointer;" '
                 'data-row-id="{}">Toggle</button>'
                 '</div>',
+                obj.id,
                 obj.content_type.capitalize(),
                 content_preview,
                 obj.id if obj else "new-row"
