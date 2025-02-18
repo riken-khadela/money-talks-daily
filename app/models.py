@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 import random, string
+from ckeditor.fields import RichTextField
 
 class TimeStampModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -113,10 +114,11 @@ class Content(models.Model):
         ('image', 'Image'),
         ('heading', 'Heading'),
         ('sub_heading', 'Sub_Heading'),
+        ('Mini_heading', 'Mini_Heading'),
     ]
     blog = models.ForeignKey(Blog, related_name='contents', on_delete=models.CASCADE)
     content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES)
-    text_content = models.TextField(blank=True, null=True)
+    text_content = RichTextField(blank=True, null=True)
     image_url = models.ImageField(upload_to='blog_content/', null=True, blank=True)
     link_url = models.URLField(max_length=200, null=True, blank=True)
     author = models.CharField(max_length=200, default="UNKNOWN")

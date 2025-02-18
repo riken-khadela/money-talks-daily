@@ -13,3 +13,4 @@ media/blog_content/*
 app/__pycache__/*
 app/migrations/*
 app/__pycache__/
+.history

@@ -24,16 +24,18 @@
                         {% for content in contents %}
                             {% if content.content_type == 'quote' %}
                                 <blockquote>
-                                    <h4 class="c_head">{{ content.text_content }}</h4>
+                                    <h4 class="c_head">{{ content.text_content|safe }}</h4>
                                 </blockquote>
                             {% elif content.content_type == 'link' %}
-                                <a href="{{ content.link_url }}">{{ content.text_content }}</a>
+                                <a href="{{ content.link_url }}">{{ content.text_content|safe }}</a>
                             {% elif content.content_type == 'paragraph' %}
-                                <p>{{ content.text_content }}</p>
+                                <p>{{ content.text_content|safe }}</p>
                             {% elif content.content_type == 'heading' %}
-                                <h1>{{ content.text_content }}</h1>
+                                <h1>{{ content.text_content|safe }}</h1>
                             {% elif content.content_type == 'sub_heading' %}
-                                <h2>{{ content.text_content }}</h2>
+                                <h2>{{ content.text_content|safe }}</h2>
+                            {% elif content.content_type == 'Mini_heading' %}
+                                <h2>{{ content.text_content|safe }}</h4>
                             {% elif content.content_type == 'image' %}
                                 <img style="width: 100%; height: 100%;" src="{{ content.image_url.url }}" alt="">
                             {% endif %}

@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'rest_framework',
-    'adminsortable2'
+    'adminsortable2',
+    'ckeditor'
 ]
 
 REST_FRAMEWORK = {
