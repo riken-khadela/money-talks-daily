@@ -132,8 +132,15 @@ class Content(models.Model):
         return f"{self.content_type} for {self.blog.title}"
     
     
-    
-  
+
+class CvContent(models.Model):
+    name = models.TextField(null=True, blank=True)
+    text_content = RichTextField(blank=True, null=True)
+    image_url = models.ImageField(upload_to='blog_content/', null=True, blank=True)
+    link_url = models.URLField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.text_content}"
   
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, related_name='comments', on_delete=models.CASCADE)
