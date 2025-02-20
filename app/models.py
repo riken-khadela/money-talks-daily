@@ -140,7 +140,7 @@ class CvContent(models.Model):
     link_url = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.text_content}"
+        return f"{self.name}"
   
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, related_name='comments', on_delete=models.CASCADE)
