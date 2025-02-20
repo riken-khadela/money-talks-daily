@@ -1,6 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminBase
-from .models import Blog, Content, Category, Tag, Comment, Task, MainRedirections, RedirectBlogs, RandomRedirection
+from .models import Blog,CvContent , Content, Category, Tag, Comment, Task, MainRedirections, RedirectBlogs, RandomRedirection
 from django.db import models
 from django.utils.html import format_html
 
@@ -116,3 +116,4 @@ admin.site.register(Task)
 admin.site.register(MainRedirections)
 admin.site.register(RedirectBlogs)
 admin.site.register(RandomRedirection)
+admin.site.register(CvContent)
