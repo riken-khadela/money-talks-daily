@@ -42,7 +42,7 @@
                             
                         {% endfor %}
 
-                        <div class="blog_social text-center">
+                        {% comment %} <div class="blog_social text-center">
                             <h5>Share This Article</h5>
                             <ul class="list-unstyled f_social_icon">
                                 <li><a href="#"><i class="social_facebook"></i></a></li>
@@ -78,7 +78,7 @@
                             {% endfor %}
                             
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     
                     {% if next_blog_url %}
                         <div class="text-center">
@@ -87,7 +87,8 @@
                     {% elif task %}
                         <!-- If it's the last blog in a task sequence, display task content -->
                         <div class="task-content">
-                            <h2>Task Completed</h2>
+                            <h2 class="text-center btn-primary">Enjoy your link</h2>
+
                             Get yout link : <a href={{ task.description }}>{{ task.description }}</a>
                              <!-- Replace `task.content` with the appropriate task content variable -->
                         </div>
