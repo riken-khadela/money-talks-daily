@@ -160,7 +160,7 @@ class BlogDetailsView(TemplateView):
     template_name = "pages/blog_details_page.html"
     
     def get_redirect_blog_link(self, task_id, user):
-        """ Get the next blog for redirection. """
+        """ Get the next blog for redirection (limit to 3 redirects). """
         if not task_id:
             return None
 
@@ -169,8 +169,12 @@ class BlogDetailsView(TemplateView):
         if not task:
             return None
 
-        # If the user has visited all the blogs, return None
+        # If the user has already visited 3 blogs, stop redirection
         visited_blogs = user.redirection_history.all()
+        if visited_blogs.count() >= 4:
+            return None  # Stop redirection
+
+        # Get remaining blogs excluding already visited ones
         remaining_blogs = Blog.objects.exclude(id__in=visited_blogs.values('id')).order_by('?')
 
         if remaining_blogs.exists():
@@ -188,42 +192,36 @@ class BlogDetailsView(TemplateView):
         if not task_id:
             blog = get_object_or_404(Blog, slug=slug)
             return self.render_blog_detail(request, blog, None)
-        else :
-            try : 
-                task_obj = get_object_or_404(Task, task_id=task_id)
-            except :
-                task_obj = None
-                
-            if not task_obj :
-                blog = get_object_or_404(Blog, slug=slug)
-                return self.render_blog_detail(request, blog, None)
+
+        # Get the task (if exists)
+        task_obj = Task.objects.filter(task_id=task_id).first()
+        if not task_obj:
+            blog = get_object_or_404(Blog, slug=slug)
+            return self.render_blog_detail(request, blog, None)
 
         # Get or create a user associated with the task
         if user_id:
             user = User.objects.filter(user_id=user_id, task__task_id=task_id).first()
         else:
             # If no user_id, create a new anonymous user for the task
-            user = User.objects.create(task=Task.objects.get(task_id=task_id))
+            user = User.objects.create(task=task_obj)
 
-        # Add current blog to the user's redirection history
+        # Add current blog to user's redirection history
         blog = get_object_or_404(Blog, slug=slug)
         user.redirection_history.add(blog)
 
-        # Check for the next blog to redirect to
-        next_blog = self.get_redirect_blog_link(task_id, user)
+        # Check if the user has already visited 3 blogs
+        if user.redirection_history.count() >= 3:
+            next_blog_url = None  # Stop further redirection
+            is_last_blog = True
+        else:
+            # Get the next blog for redirection
+            next_blog = self.get_redirect_blog_link(task_id, user)
+            next_blog_url = next_blog.get_absolute_url() + f"?task_id={task_id}&user_id={user.user_id}" if next_blog else None
+            is_last_blog = next_blog is None
 
-        # If there's a next blog, pass it to the context
-        next_blog_url = None
-        if next_blog:
-            next_blog_url = next_blog.get_absolute_url() + f"?task_id={task_id}&user_id={user.user_id}"
-
-        # Determine if this is the last blog in the task sequence
-        task = Task.objects.filter(task_id=task_id).first()
-        is_last_blog = not next_blog  # If there is no next blog, it's the last blog
-
-        
-        # Render the current blog with the next blog URL
-        return self.render_blog_detail(request, blog, next_blog_url, task, is_last_blog)
+        # Render the blog with next blog link
+        return self.render_blog_detail(request, blog, next_blog_url, task_obj, is_last_blog)
     
     def render_blog_detail(self, request, blog, next_blog_url, task=None, is_last_blog=False):
         """ Helper method to render blog details. """
