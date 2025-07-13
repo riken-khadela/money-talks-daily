@@ -143,12 +143,12 @@ import os
 STATIC_URL = '/static/'
 
 # Directory where Django will collect all static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 # Additional directories where Django will search for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Your app-level static directory
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
