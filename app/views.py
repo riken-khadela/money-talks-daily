@@ -246,6 +246,20 @@ class BlogDetailsView(TemplateView):
             "Blogs",
             blog.title
         ]
+        data = {
+            'blogs': blog,
+            "contents": Content.objects.filter(blog=blog).order_by('order'),
+            "related_blogs": related_blogs,
+            'comments': comments,
+            "tags": blog.tag.all(),
+            "post_categories": post_categories,
+            "recent_blogs": recent_blogs,
+            "next_blog_url": next_blog_url,  # Include the next blog URL if it exists
+            "task": task,  # Pass the task content if it exists
+            "is_last_blog": is_last_blog,
+            "path" : path
+        }
+        print(data)
         return render(request, self.template_name, {
             'blogs': blog,
             "contents": Content.objects.filter(blog=blog).order_by('order'),
