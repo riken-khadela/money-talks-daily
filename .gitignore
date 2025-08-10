@@ -11,8 +11,9 @@ db.sqlite3
 media/blog_image/*
 media/blog_content/*
 app/__pycache__/*
-app/migrations/*
+# app/migrations/*
 app/__pycache__/
+blog/__pycache__/*
 .history
 .env
 *.crt
