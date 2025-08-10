@@ -23,9 +23,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ds$b0r5*u#w!3h7%q&i=%w7m+%!**!aulklmf7awqjw*y6^ywn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_HSTS_SECONDS = 315360000 
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = ['*', "208.122.217.49"]
+ALLOWED_HOSTS = [
+    'moneytalksdaily.com',
+    'www.moneytalksdaily.com',
+    '*.vercel.app',  
+    'localhost',
+    '127.0.0.1',
+    '208.122.217.49' 
+]
 
 
 # Application definition
