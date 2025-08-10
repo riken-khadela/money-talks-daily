@@ -15,3 +15,5 @@ app/migrations/*
 app/__pycache__/
 .history
 .env
+*.crt
+*.key

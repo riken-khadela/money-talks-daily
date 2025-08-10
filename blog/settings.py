@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ds$b0r5*u#w!3h7%q&i=%w7m+%!**!aulklmf7awqjw*y6^ywn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'adminsortable2',
-    'ckeditor'
+    'ckeditor',
+    'django_extensions'
 ]
 
 REST_FRAMEWORK = {
