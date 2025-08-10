@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "buildCommand": "bash build_files.sh",
+    "buildCommand": "bash build.sh",
     "builds": [
         {
             "src": "blog/wsgi.py",
@@ -9,12 +9,20 @@
                 "maxLambdaSize": "15mb",
                 "runtime": "python3.9"
             }
+        },
+        {
+            "src": "static/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/static/(.*)",
             "dest": "/static/$1"
+        },
+        {
+            "src": "/media/(.*)",
+            "dest": "/media/$1"
         },
         {
             "src": "/(.*)",
