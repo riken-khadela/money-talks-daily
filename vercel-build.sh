@@ -1,4 +1,3 @@
-#!/bin/bash
-pip install --upgrade pip
+# build_files.sh
 pip install -r requirements.txt
-python manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput

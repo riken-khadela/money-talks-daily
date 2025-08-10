@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.env
+*.env
+
+# Local dev DB
+db.sqlite3
+
+# Node stuff (if not needed in prod)
+node_modules/
+
+# Django static files (will be collected in build)
+staticfiles/
+staticfiles_build/
+
+# Media files (if served via cloud storage, not local)
+media/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
