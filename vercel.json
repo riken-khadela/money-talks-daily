@@ -4,17 +4,20 @@
     {
       "src": "blog/wsgi.py",
       "use": "@vercel/python",
+      "config": { "maxLambdaSize": "100mb", "runtime": "python3.11" }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
       "config": {
-        "maxLambdaSize": "500mb",
-        "runtime": "python3.11"
+        "distDir": "staticfiles_build"
       }
     }
   ],
-  "buildCommand": "python manage.py collectstatic --noinput",
   "routes": [
     {
-      "src": "/media/(.*)",
-      "dest": "/media/$1"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
       "src": "/(.*)",
